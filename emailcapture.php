@@ -31,7 +31,7 @@ if ( !function_exists( 'add_action' ) ) {
     exit;
 }
 
-define( 'EMAILCAPTURE__VERSION', '1.0.0' );
+define( 'EMAILCAPTURE__VERSION', '1.1.0' );
 define( 'EMAILCAPTURE__MINIMUM_WP_VERSION', '4.2' );
 define( 'EMAILCAPTURE__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'EMAILCAPTURE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -86,22 +86,22 @@ function emailcapture_form( $fields = null ) {
 
     // check for google addwords conversion options
     if (isset($fields['google_conversion_id'])) {
-      unset(($fields['google_conversion_id']));
+      unset($fields['google_conversion_id']);
     }
     if (isset($fields['google_conversion_language'])) {
-      unset(($fields['google_conversion_language']));
+      unset($fields['google_conversion_language']);
     }
     if (isset($fields['google_conversion_format'])) {
-      unset(($fields['google_conversion_format']));
+      unset($fields['google_conversion_format']);
     }
     if (isset($fields['google_conversion_color'])) {
-      unset(($fields['google_conversion_color']));
+      unset($fields['google_conversion_color']);
     }
     if (isset($fields['google_conversion_label'])) {
-      unset(($fields['google_conversion_label']));
+      unset($fields['google_conversion_label']);
     }
     if (isset($fields['google_remarketing_only'])) {
-      unset(($fields['google_remarketing_only']));
+      unset($fields['google_remarketing_only']);
     }
 
     if (isset($fields) && !empty($fields)) {
@@ -115,8 +115,8 @@ function emailcapture_form( $fields = null ) {
         $form .= '</div>';
     }
     $form .= '<div class="form-field">';
-    $form .= '<input type="text" name="website-x" class="hidden" />';
-    $form .= '<input type="text" name="email-x" class="hidden" />';
+    $form .= '<input type="text" name="website-x" class="hidden" style="display: none" />';
+    $form .= '<input type="text" name="email-x" class="hidden" style="display: none" />';
     $form .= '<input type="hidden" name="submited" value="_submited" />';
     $form .= '<input type="submit" name="submit" value="DOWNLOAD" />';
     $form .= '</div>';
