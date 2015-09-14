@@ -9,7 +9,7 @@ if ( !function_exists( 'add_action' ) ) {
 }
 
 header('Content-Type: application/csv');
-header('Content-Disposition: attachment; filename="emailcaputures.csv"');
+header('Content-Disposition: attachment; filename="captured_emails.csv"');
 header('Pragma: no-cache');
 
 global $wpdb;

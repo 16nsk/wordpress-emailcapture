@@ -83,6 +83,27 @@ This is a WordPress limitation!";
 function emailcapture_form( $fields = null ) {
     $form = '<div class="ec-form">';
     $form .= '<form method="post">';
+
+    // check for google addwords conversion options
+    if (isset($fields['google_conversion_id'])) {
+      unset(($fields['google_conversion_id']));
+    }
+    if (isset($fields['google_conversion_language'])) {
+      unset(($fields['google_conversion_language']));
+    }
+    if (isset($fields['google_conversion_format'])) {
+      unset(($fields['google_conversion_format']));
+    }
+    if (isset($fields['google_conversion_color'])) {
+      unset(($fields['google_conversion_color']));
+    }
+    if (isset($fields['google_conversion_label'])) {
+      unset(($fields['google_conversion_label']));
+    }
+    if (isset($fields['google_remarketing_only'])) {
+      unset(($fields['google_remarketing_only']));
+    }
+
     if (isset($fields) && !empty($fields)) {
         foreach ($fields as $field_name => $field_label) {
             $form .= emailcapture_field($field_label, $field_name);
@@ -112,6 +133,32 @@ function emailcapture_shortcode( $atts, $content = null )
         if (isset($content) && $content != '') {
             $original_atts = $atts;
             $response = '<div class="ec-response"><p>'.$content.'</p></div>';
+            if (isset($atts['google_conversion_id']) &&
+              isset($atts['google_conversion_language']) &&
+              isset($atts['google_conversion_format']) &&
+              isset($atts['google_conversion_color']) &&
+              isset($atts['google_conversion_label']) &&
+              isset($atts['google_remarketing_only'])) {
+                $response .= <<<EOL
+                <script type="text/javascript">
+                /* <![CDATA[ */
+                var google_conversion_id = {$atts['google_conversion_id']};
+                var google_conversion_language = "{$atts['google_conversion_language']}";
+                var google_conversion_format = "{$atts['google_conversion_format']}";
+                var google_conversion_color = "{$atts['google_conversion_color']}";
+                var google_conversion_label = "{$atts['google_conversion_label']}";
+                var google_remarketing_only = {$atts['google_remarketing_only']};
+                /* ]]> */
+                </script>
+                <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+                </script>
+                <noscript>
+                <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/{$atts['google_conversion_id']}/?label={$atts['google_conversion_label']}&amp;guid=ON&amp;script=0"/>
+                </div>
+                </noscript>
+EOL;
+              }
 
             // sanitise & add to the database
             $fields = array();
